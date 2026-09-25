@@ -5,6 +5,7 @@ import TaskList from './components/TaskList'
 function App() {
   const [tasks, setTasks] = useState([])
   const [categoryFilter, setCategoryFilter] = useState('All')
+  const [statusFilter, setStatusFilter] = useState('All')
 
   function addTask(newTask) {
     setTasks((prevTasks) => [...prevTasks, newTask])
@@ -36,10 +37,25 @@ function App() {
     )
   }
 
-  const filteredTasks =
+  const categoryFilteredTasks =
     categoryFilter === 'All'
       ? tasks
       : tasks.filter((task) => task.category === categoryFilter)
+
+  const filteredTasks =
+    statusFilter === 'All'
+      ? categoryFilteredTasks
+      : statusFilter === 'Active'
+        ? categoryFilteredTasks.filter((task) => !task.completed)
+        : categoryFilteredTasks.filter((task) => task.completed)
+
+  const remainingCount = tasks.filter(
+    (task) => !task.completed
+  ).length
+
+  const completedCount = tasks.filter(
+    (task) => task.completed
+  ).length
 
   return (
     <div>
@@ -48,6 +64,24 @@ function App() {
       <TaskForm onAddTask={addTask} />
 
       <div>
+        <h3>Status</h3>
+
+        <button onClick={() => setStatusFilter('All')}>
+          All
+        </button>
+
+        <button onClick={() => setStatusFilter('Active')}>
+          Active
+        </button>
+
+        <button onClick={() => setStatusFilter('Completed')}>
+          Completed
+        </button>
+      </div>
+
+      <div>
+        <h3>Category</h3>
+
         <button onClick={() => setCategoryFilter('All')}>
           All
         </button>
@@ -63,6 +97,11 @@ function App() {
         <button onClick={() => setCategoryFilter('Urgent')}>
           Urgent
         </button>
+      </div>
+
+      <div>
+        <p>Remaining: {remainingCount}</p>
+        <p>Completed: {completedCount}</p>
       </div>
 
       <TaskList
