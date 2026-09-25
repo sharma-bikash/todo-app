@@ -25,6 +25,16 @@ function App() {
     )
   }
 
+  function editTask(taskId, newText) {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId
+          ? { ...task, text: newText }
+          : task
+      )
+    )
+  }
+
   return (
     <div>
       <h1>To-Do App</h1>
@@ -35,6 +45,7 @@ function App() {
         tasks={tasks}
         onToggleTask={toggleTask}
         onDeleteTask={deleteTask}
+        onEditTask={editTask}
       />
     </div>
   )
