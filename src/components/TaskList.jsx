@@ -1,4 +1,4 @@
-function TaskList({ tasks }) {
+function TaskList({ tasks, onToggleTask, onDeleteTask }) {
   if (tasks.length === 0) {
     return <p>No tasks yet. Add your first task!</p>
   }
@@ -7,8 +7,19 @@ function TaskList({ tasks }) {
     <div className="task-list">
       {tasks.map((task) => (
         <div key={task.id}>
-          <h3>{task.text}</h3>
-          <p>Category: {task.category}</p>
+          <input
+            type="checkbox"
+            checked={task.completed}
+            onChange={() => onToggleTask(task.id)}
+          />
+
+          <span>
+            {task.text} - {task.category}
+          </span>
+
+          <button onClick={() => onDeleteTask(task.id)}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
