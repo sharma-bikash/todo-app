@@ -1,11 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TaskForm from './components/TaskForm'
 import TaskList from './components/TaskList'
 
 function App() {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('todoTasks')
+
+    return savedTasks ? JSON.parse(savedTasks) : []
+  })
+
   const [categoryFilter, setCategoryFilter] = useState('All')
   const [statusFilter, setStatusFilter] = useState('All')
+
+  useEffect(() => {
+    localStorage.setItem('todoTasks', JSON.stringify(tasks))
+  }, [tasks])
 
   function addTask(newTask) {
     setTasks((prevTasks) => [...prevTasks, newTask])
