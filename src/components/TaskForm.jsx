@@ -13,7 +13,7 @@ function TaskForm({ onAddTask }) {
 
     onAddTask({
       id: Date.now(),
-      text: text,
+      text: text.trim(),
       completed: false,
       category: category,
     })
@@ -22,7 +22,7 @@ function TaskForm({ onAddTask }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="task-form" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Add a new task..."
@@ -39,7 +39,9 @@ function TaskForm({ onAddTask }) {
         <option value="Urgent">Urgent</option>
       </select>
 
-      <button type="submit">Add Task</button>
+      <button type="submit">
+        Add Task
+      </button>
     </form>
   )
 }

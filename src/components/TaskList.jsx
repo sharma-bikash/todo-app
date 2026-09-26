@@ -1,6 +1,11 @@
 import { useState } from 'react'
 
-function TaskList({ tasks, onToggleTask, onDeleteTask, onEditTask }) {
+function TaskList({
+  tasks,
+  onToggleTask,
+  onDeleteTask,
+  onEditTask,
+}) {
   if (tasks.length === 0) {
     return <p>No tasks yet. Add your first task!</p>
   }
@@ -20,7 +25,12 @@ function TaskList({ tasks, onToggleTask, onDeleteTask, onEditTask }) {
   )
 }
 
-function TaskItem({ task, onToggleTask, onDeleteTask, onEditTask }) {
+function TaskItem({
+  task,
+  onToggleTask,
+  onDeleteTask,
+  onEditTask,
+}) {
   const [isEditing, setIsEditing] = useState(false)
   const [editText, setEditText] = useState(task.text)
 
@@ -34,8 +44,9 @@ function TaskItem({ task, onToggleTask, onDeleteTask, onEditTask }) {
   }
 
   return (
-    <div>
+    <div className="task-item">
       <input
+        className="task-checkbox"
         type="checkbox"
         checked={task.completed}
         onChange={() => onToggleTask(task.id)}
@@ -44,28 +55,51 @@ function TaskItem({ task, onToggleTask, onDeleteTask, onEditTask }) {
       {isEditing ? (
         <>
           <input
+            className="edit-input"
             type="text"
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
           />
 
-          <button onClick={handleSave}>Save</button>
+          <button
+            className="save-button"
+            onClick={handleSave}
+          >
+            Save
+          </button>
 
-          <button onClick={() => setIsEditing(false)}>
+          <button
+            className="cancel-button"
+            onClick={() => setIsEditing(false)}
+          >
             Cancel
           </button>
         </>
       ) : (
         <>
-          <span>
-            {task.text} - {task.category}
+          <span
+            className={`task-text ${
+              task.completed ? 'completed' : ''
+            }`}
+          >
+            {task.text}
           </span>
 
-          <button onClick={() => setIsEditing(true)}>
+          <span className="task-category">
+            {task.category}
+          </span>
+
+          <button
+            className="edit-button"
+            onClick={() => setIsEditing(true)}
+          >
             Edit
           </button>
 
-          <button onClick={() => onDeleteTask(task.id)}>
+          <button
+            className="delete-button"
+            onClick={() => onDeleteTask(task.id)}
+          >
             Delete
           </button>
         </>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import TaskForm from './components/TaskForm'
 import TaskList from './components/TaskList'
+import './App.css'
 
 function App() {
   const [tasks, setTasks] = useState(() => {
@@ -67,48 +68,73 @@ function App() {
   ).length
 
   return (
-    <div>
+    <div className="app">
       <h1>To-Do App</h1>
 
       <TaskForm onAddTask={addTask} />
 
-      <div>
+      <div className="filter-section">
         <h3>Status</h3>
 
-        <button onClick={() => setStatusFilter('All')}>
-          All
-        </button>
+        <div className="filter-buttons">
+          <button
+            className={statusFilter === 'All' ? 'active-filter' : ''}
+            onClick={() => setStatusFilter('All')}
+          >
+            All
+          </button>
 
-        <button onClick={() => setStatusFilter('Active')}>
-          Active
-        </button>
+          <button
+            className={statusFilter === 'Active' ? 'active-filter' : ''}
+            onClick={() => setStatusFilter('Active')}
+          >
+            Active
+          </button>
 
-        <button onClick={() => setStatusFilter('Completed')}>
-          Completed
-        </button>
+          <button
+            className={statusFilter === 'Completed' ? 'active-filter' : ''}
+            onClick={() => setStatusFilter('Completed')}
+          >
+            Completed
+          </button>
+        </div>
       </div>
 
-      <div>
+      <div className="filter-section">
         <h3>Category</h3>
 
-        <button onClick={() => setCategoryFilter('All')}>
-          All
-        </button>
+        <div className="filter-buttons">
+          <button
+            className={categoryFilter === 'All' ? 'active-filter' : ''}
+            onClick={() => setCategoryFilter('All')}
+          >
+            All
+          </button>
 
-        <button onClick={() => setCategoryFilter('Personal')}>
-          Personal
-        </button>
+          <button
+            className={categoryFilter === 'Personal' ? 'active-filter' : ''}
+            onClick={() => setCategoryFilter('Personal')}
+          >
+            Personal
+          </button>
 
-        <button onClick={() => setCategoryFilter('Work')}>
-          Work
-        </button>
+          <button
+            className={categoryFilter === 'Work' ? 'active-filter' : ''}
+            onClick={() => setCategoryFilter('Work')}
+          >
+            Work
+          </button>
 
-        <button onClick={() => setCategoryFilter('Urgent')}>
-          Urgent
-        </button>
+          <button
+            className={categoryFilter === 'Urgent' ? 'active-filter' : ''}
+            onClick={() => setCategoryFilter('Urgent')}
+          >
+            Urgent
+          </button>
+        </div>
       </div>
 
-      <div>
+      <div className="task-counts">
         <p>Remaining: {remainingCount}</p>
         <p>Completed: {completedCount}</p>
       </div>
